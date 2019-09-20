@@ -22,6 +22,7 @@ query($latLong: WeatherQuery!) {
 
 const getWeather = state => {
   const { temperatureinFahrenheit, description, locationName } = state.weather;
+  
   return {
     temperatureinFahrenheit,
     description,
@@ -63,7 +64,7 @@ const Weather = () => {
         return;
       }
       if (!data) return;
-      const { getWeatherForLocation } = data;
+      const { getWeatherForLocation } = data;     //getWeatherForLocation is property name returned by query
       dispatch({ type: actions.WEATHER_DATA_RECEIVED, getWeatherForLocation });
     },
     [dispatch, data, error]

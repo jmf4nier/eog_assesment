@@ -32,5 +32,5 @@ const handlers = {
 export default (state = initialState, action) => {
   const handler = handlers[action.type];
   if (typeof handler === "undefined") return state;
-  return handler(state, action);
+  return handler(state, action); //gives reducer a name and passes to combineReducer in store
 };

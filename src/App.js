@@ -1,4 +1,5 @@
 import React from "react";
+import FlareTemp from './components/FlareTemp'
 import createStore from "./store";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
@@ -7,7 +8,9 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
-import NowWhat from "./components/NowWhat";
+import { Subscription } from "urql";
+import SubscriptionHandler from './components/SubscriptionHandler'
+
 
 const store = createStore();
 const theme = createMuiTheme({
@@ -27,17 +30,21 @@ const theme = createMuiTheme({
   }
 });
 
-const App = props => (
-  <MuiThemeProvider theme={theme}>
-    <CssBaseline />
-    <Provider store={store}>
-      <Wrapper>
-        <Header />
-        <NowWhat />
-        <ToastContainer />
-      </Wrapper>
-    </Provider>
-  </MuiThemeProvider>
-);
+const App = props => {
 
+  
+  return (
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      <Provider store={store}>
+        <Wrapper>
+          <Header />
+          <SubscriptionHandler/>
+          {/* <FlareTemp/> */}
+          <ToastContainer />
+        </Wrapper>
+      </Provider>
+    </MuiThemeProvider>
+  );
+}
 export default App;
