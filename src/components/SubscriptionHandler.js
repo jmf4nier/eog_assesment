@@ -57,7 +57,7 @@ const SubscriptionResults = () => {
     }
     if (!data) return console.log("halp");
     const { newMeasurement } = data;
-    console.log(newMeasurement.metric)
+    // console.log(newMeasurement.metric)
     switch (newMeasurement.metric) {
       case 'flareTemp':
         dispatch({ type: actions.FLARE_DATA_RECEIVED, newMeasurement });
@@ -69,7 +69,7 @@ const SubscriptionResults = () => {
         dispatch({ type: actions.TUBING_PRESSURE_RECEIVED, newMeasurement });
         break;
       default:
-        console.log("oops");
+        break;
     }
   }, [dispatch, data, error]);
 

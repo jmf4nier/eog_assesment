@@ -1,18 +1,15 @@
 import React from "react";
-import FlareTemp from './components/FlareTemp'
-import createStore from "./store";
-import { Provider } from "react-redux";
+import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
+import SimpleLineChart from './components/Graph'
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
-import { Subscription } from "urql";
 import SubscriptionHandler from './components/SubscriptionHandler'
 
 
-const store = createStore();
 const theme = createMuiTheme({
   typography: {
     useNextVariants: true
@@ -32,18 +29,16 @@ const theme = createMuiTheme({
 
 const App = props => {
 
-  
+  const graphSelected = useSelector(state => state.selectedMetrics);
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
-      <Provider store={store}>
         <Wrapper>
           <Header />
           <SubscriptionHandler/>
-          {/* <FlareTemp/> */}
+          {(graphSelected.length > 0)?<SimpleLineChart/>:null}
           <ToastContainer />
         </Wrapper>
-      </Provider>
     </MuiThemeProvider>
   );
 }

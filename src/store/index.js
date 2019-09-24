@@ -6,10 +6,11 @@ import weatherReducer from "./reducers/Weather";
 import flareReducer from './reducers/Flare';
 import oilReducer from './reducers/OilTemp'
 import tubingReducer from './reducers/TubingPressure'
+import selectBoxReducer from './reducers/SelectBox'
 
 export default () => {
   const rootReducer = combineReducers({
-    weather: weatherReducer,
+    selectedMetrics: selectBoxReducer,
     flareTemp: flareReducer,
     oilTemp: oilReducer,
     tubingPressure: tubingReducer
