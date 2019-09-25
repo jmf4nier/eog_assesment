@@ -2,18 +2,23 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import sagas from "./sagas";
-import weatherReducer from "./reducers/Weather";
-import flareReducer from './reducers/Flare';
-import oilReducer from './reducers/OilTemp'
-import tubingReducer from './reducers/TubingPressure'
-import selectBoxReducer from './reducers/SelectBox'
+// import weatherReducer from "./reducers/Weather";
+import flareReducer from './reducers/FlareReducer';
+import oilReducer from './reducers/OilTempReducer'
+import tubingReducer from './reducers/TubingPressureReducer'
+import selectBoxReducer from './reducers/SelectBoxReducer'
+import injValveReducer from './reducers/InjValveReducer'
+import casingReducer from './reducers/CasingPressureReducer'
 
 export default () => {
   const rootReducer = combineReducers({
     selectedMetrics: selectBoxReducer,
     flareTemp: flareReducer,
     oilTemp: oilReducer,
-    tubingPressure: tubingReducer
+    tubingPressure: tubingReducer,
+    injValveStatus: injValveReducer,
+    casingPressure: casingReducer,
+    waterTemp: waterReducer
   });
 
   const composeEnhancers = composeWithDevTools({});

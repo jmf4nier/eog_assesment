@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import moment from "moment";
 import { useSelector } from "react-redux";
+import CustomLine from "./CustomLine";
 import {
     LineChart,
-    Line,
     XAxis,
     YAxis,
+    Line,
     CartesianGrid,
     ReferenceDot,
     Tooltip,
@@ -16,13 +17,26 @@ import { useEffect } from "react";
 
 const SimpleLineChart = props => {
     const allData = useSelector(state => state);
+    const graphSelected = useSelector(state => state.selectedMetrics);
     const flareData = useSelector(state => state.flareTemp);
     const oilData = useSelector(state => state.oilTemp);
     const tubingData = useSelector(state => state.tubingPressure);
     const [data, setData] = useState([
         { flareTemp: null, oilTemp: null, tubingPressure: null, time: null }
     ]);
-
+    const customLine = (
+        graphSelected.map(metric => {
+            // console.log(metric)
+        return <Line
+            dot={false}
+            type="monotone"
+            dataKey={metric}
+            stroke="#82ca9d"
+            activeDot={{ r: 8 }}
+            isAnimationActive={false}
+        />
+        })
+    );
     useEffect(() => {
         setData([
             ...data,
@@ -54,26 +68,10 @@ const SimpleLineChart = props => {
                     interval={100}
                 />
                 <YAxis />
-
                 <CartesianGrid />
                 <Tooltip />
                 <Legend />
-                <Line
-                    dot={false}
-                    type="monotone"
-                    dataKey="flareTemp"
-                    stroke="#8884d8"
-                    activeDot={{ r: 8 }}
-                    isAnimationActive={false}
-                />
-                <Line
-                    dot={false}
-                    type="monotone"
-                    dataKey="oilTemp"
-                    stroke="#82ca9d"
-                    activeDot={{ r: 8 }}
-                    isAnimationActive={false}
-                />
+                {customLine}
             </LineChart>
         </ResponsiveContainer>
     );

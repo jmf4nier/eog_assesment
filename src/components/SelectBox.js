@@ -51,7 +51,7 @@ const MenuProps = {
 
 const metrics = [
     "flareTemp",
-    "tubing Pressure",
+    "tubingPressure",
     "injValveOpen",
     "oilTemp",
     "casingPressure",
@@ -73,6 +73,7 @@ export default function SelectBox() {
     const [metricName, setmetricName] = React.useState([]);
     const dispatch = useDispatch();
     const handleChange = event => {
+      
         setmetricName(event.target.value);
         handleDispatch(event.target.value);
     };
