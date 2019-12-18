@@ -1,14 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
-import SimpleLineChart from "./components/Graph";
+// import SimpleLineChart from "./components/Graph";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 import SubscriptionHandler from "./components/SubscriptionHandler";
-import CustomLine from "./components/CustomLine";
+import HistoricDataHandler from './components/HistoricDataHandler'
+import Graph from './components/Graph'
 
 const theme = createMuiTheme({
     typography: {
@@ -34,11 +35,12 @@ const App = props => {
             <CssBaseline />
             <Wrapper>
                 <Header />
-                <SubscriptionHandler />
-                
-                {graphSelected.length > 0 ? (
-                    <SimpleLineChart />
-                ) : null}
+                {/* <SubscriptionHandler /> */}
+                <HistoricDataHandler/>
+                {/* {graphSelected.length > 0 ? (
+                    null
+                ) : null} */}
+                <Graph />
                 <ToastContainer />
             </Wrapper>
         </MuiThemeProvider>
