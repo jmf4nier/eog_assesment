@@ -11,8 +11,7 @@ const initialState = [
 
 const flareDataReceived = (state, action) => {
     const { data } = action;
-    const { at, value, unit, metric } = data;
-
+    const { at, value, unit, metric } = data
     return [
         ...state,
         {

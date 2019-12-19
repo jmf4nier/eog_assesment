@@ -1,48 +1,47 @@
 import React from "react";
-// import moment from "moment";
 import { useSelector } from "react-redux";
-
 import { Line } from "react-chartjs-2";
+import moment from "moment";
 
 export default function Graph() {
-    const flareData = useSelector(state => state.flareTemp.map( temps =>{
-        console.log(temps.value)
-    }));
+
+    const timeStamps = useSelector(state =>
+        state.flareTemp.map(data => {
+            const time = moment.unix(data.at).format(" h:mm A");
+            return time;
+        })
+    );
+    const flareTemps = useSelector(state =>
+        state.flareTemp.map(data => {
+           if (data.value !== undefined && data.value !== null ){
+               return data.value
+           }
+             
+        })
+    );
+    const tubingPressure = useSelector(state =>
+        state.tubingPressure.map(data => {
+            return data.value;
+        })
+    );
+    console.log(timeStamps);
     const data = {
-        labels: [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July"
-        ],
+        labels: timeStamps,
         datasets: [
             {
-                label: "My First dataset",
+                label: "Flare Temperature",
                 fill: false,
                 lineTension: 0.1,
-                backgroundColor: "rgba(75,192,192,0.4)",
-                borderColor: "rgba(75,192,192,1)",
-                borderCapStyle: "butt",
-                borderDash: [],
-                borderDashOffset: 0.0,
-                borderJoinStyle: "miter",
-                pointBorderColor: "rgba(75,192,192,1)",
-                pointBackgroundColor: "#fff",
-                pointBorderWidth: 1,
-                pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                pointHoverBorderColor: "rgba(220,220,220,1)",
-                pointHoverBorderWidth: 2,
-                pointRadius: 1,
-                pointHitRadius: 10,
-                data: [1]
+                data: [1,3,2,4,5,63,2]
+            },
+            {
+                label: "Tubing Pressure",
+                fill: false,
+                lineTension: 0.1,
+                data: tubingPressure.value
             }
         ]
     };
-    
 
     return (
         <div>
