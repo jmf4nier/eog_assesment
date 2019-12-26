@@ -1,3 +1,3 @@
 import ApiErrors from "./ApiErrors";
-
-export default [...ApiErrors];
+import DataReception from './DataReception'
+export default [...ApiErrors, ...DataReception];

@@ -6,9 +6,9 @@ import { useGeolocation } from "react-use";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Chip from "./Chip";
 
-const client = createClient({
-  url: "https://react.eogresources.com/graphql"
-});
+// const client = createClient({
+//   url: "https://react.eogresources.com/graphql"
+// });
 
 const query = `
 query($latLong: WeatherQuery!) {
@@ -30,13 +30,7 @@ const getWeather = state => {
   };
 };
 
-export default () => {
-  return (
-    <Provider value={client}>
-      <Weather />
-    </Provider>
-  );
-};
+//moved urql Provider to App
 
 const Weather = () => {
   const getLocation = useGeolocation();
@@ -71,10 +65,11 @@ const Weather = () => {
   );
 
   if (fetching) return <LinearProgress />;
-
+    
   return (
     <Chip
       label={`Weather in ${locationName}: ${description} and ${temperatureinFahrenheit}°`}
     />
   );
 };
+export default Weather

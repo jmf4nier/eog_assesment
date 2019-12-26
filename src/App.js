@@ -8,9 +8,15 @@ import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Wrapper from "./components/Wrapper";
 import SubscriptionHandler from "./components/SubscriptionHandler";
-import HistoricDataHandler from './components/HistoricDataHandler'
-import Graph from './components/Graph'
+import HistoricDataHandler from "./components/HistoricDataHandler";
+import Graph from "./components/Graph";
+import Weather from "./components/Weather";
+import { Provider, createClient } from "urql";
+import ApiDataFetch from './store/api/index'
 
+const client = createClient({
+    url: "https://react.eogresources.com/graphql"
+});
 const theme = createMuiTheme({
     typography: {
         useNextVariants: true
@@ -29,21 +35,25 @@ const theme = createMuiTheme({
 });
 
 const App = props => {
-  const graphSelected = useSelector(state => state.selectedMetrics);
+    const graphSelected = useSelector(state => state.selectedMetrics);
     return (
-        <MuiThemeProvider theme={theme}>
-            <CssBaseline />
-            <Wrapper>
-                <Header />
-                {/* <SubscriptionHandler /> */}
-                <HistoricDataHandler/>
-                {/* {graphSelected.length > 0 ? (
+        <Provider value={client}>
+            <MuiThemeProvider theme={theme}>
+                <CssBaseline />
+                <Wrapper>
+                    <Header />
+                    {/* <SubscriptionHandler /> */}
+
+                    <Weather/>
+                    {/* {graphSelected.length > 0 ? (
                     null
                 ) : null} */}
-                <Graph />
-                <ToastContainer />
-            </Wrapper>
-        </MuiThemeProvider>
+                <HistoricDataHandler/>
+                    <Graph />
+                    <ToastContainer />
+                </Wrapper>
+            </MuiThemeProvider>
+        </Provider>
     );
 };
 export default App;
