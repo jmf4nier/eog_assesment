@@ -1,10 +1,9 @@
 // import { Provider, Client, useQuery } from "urql";
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as actions from "../store/actions";
-import {useQuery} from 'urql'
-// import LinearProgress from "@material-ui/core/LinearProgress";
-
+import { useQuery } from "urql";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 const query = `
     query ($time: Timestamp){
@@ -28,49 +27,38 @@ const query = `
     }
 `;
 
+const time = Date.now() - 1800000;
 
-    const time = Date.now() - 20000;
-    
-    
-    
-    
-   
-
-
-    
-
- const HistoricalResults = () => {
+const HistoricalResults = () => {
     const [result] = useQuery({
         query: query,
         variables: {
             time
         }
-    })
+    });
     const { fetching, data, error } = result;
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     useEffect(() => {
-        
-            if (error) {
-              dispatch({ type: actions.HISTORICAL_DATA_ERROR, error: error.message });
-              return;
-            }
-            if (!data) return;
-            dispatch({ type: actions.HISTORICAL_DATA_LOADING, data});
-          },
-          [dispatch, data, error]
-    )
-    return(
-        <div>stuff</div>)
-     
-    }
+        if (error) {
+            dispatch({
+                type: actions.HISTORICAL_DATA_ERROR,
+                error: error.message
+            });
+            return;
+        }
+        if (!data) return
+        if(fetching){
+          return <LinearProgress/>
+        };
+        dispatch({ type: actions.HISTORICAL_DATA_LOADING, data });
+    }, [dispatch, data, error, fetching]);
+    return <div>stuff</div>;
+};
 
-export default HistoricalResults
-
-
-
+export default HistoricalResults;
 
 // not being used for now:
-// const metricNames = [     
+// const metricNames = [
 //     "flareTemp",
 //     "tubingPressure",
 //     "injValveOpen",

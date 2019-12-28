@@ -11,11 +11,29 @@ import SubscriptionHandler from "./components/SubscriptionHandler";
 import HistoricDataHandler from "./components/HistoricDataHandler";
 import Graph from "./components/Graph";
 import Weather from "./components/Weather";
-import { Provider, createClient } from "urql";
-import ApiDataFetch from './store/api/index'
+import { SubscriptionClient } from "subscriptions-transport-ws";
+import {
+    Provider,
+    createClient,
+    defaultExchanges,
+    subscriptionExchange,
+} from "urql";
+import ApiDataFetch from "./store/api/index";
+
+const subscriptionClient = new SubscriptionClient(
+    "ws://react.eogresources.com/graphql",
+    {}
+);
 
 const client = createClient({
-    url: "https://react.eogresources.com/graphql"
+    url: "https://react.eogresources.com/graphql",
+    exchanges: [
+        ...defaultExchanges,
+        subscriptionExchange({
+            forwardSubscription: operation =>
+                subscriptionClient.request(operation)
+        })
+    ]
 });
 const theme = createMuiTheme({
     typography: {
@@ -44,11 +62,12 @@ const App = props => {
                     <Header />
                     {/* <SubscriptionHandler /> */}
 
-                    <Weather/>
+                    <Weather />
                     {/* {graphSelected.length > 0 ? (
                     null
                 ) : null} */}
-                <HistoricDataHandler/>
+                    <HistoricDataHandler />
+                    {/* <SubscriptionHandler /> */}
                     <Graph />
                     <ToastContainer />
                 </Wrapper>

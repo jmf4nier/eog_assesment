@@ -6,25 +6,26 @@ const initialState = {
     error: ""
 };
 
-export default function historicalDataReducer(state = initialState, action) {
+export default function subscriptionDataReducer(state = initialState, action) {
     const {data} = action
+    
     switch (action.type) {
-        case actions.HISTORICAL_DATA_SUCCESS: {
+        case actions.SUBSCRIPTION_DATA_SUCCESS: {
             return {
                  
-                data: data.getMultipleMeasurements,  //grabs and stores only the array of measurements as a shortcut
-                error: '',
+                ...state,
+                data: [...state.data, data],
                 loading: false
             };
         }
-        case actions.HISTORICAL_DATA_ERROR: {
+        case actions.SUBSCRIPTION_DATA_ERROR: {
             return {
                 ...state,
                 loading: false,
                 error: action.error
             };
         }
-        case actions.HISTORICAL_DATA_LOADING: {
+        case actions.SUBSCRIPTION_DATA_LOADING: {
             return {
                 ...state,
                 loading: true,

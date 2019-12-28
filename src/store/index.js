@@ -4,7 +4,10 @@ import createSagaMiddleware from "redux-saga";
 import sagas from "./sagas";
 import weatherReducer from "./reducers/Weather";
 import historicalDataReducer from './reducers/HistoricalData'
+import subscriptionDataReducer from './reducers/SubscriptionData'
+
 import selectBoxReducer from "./reducers/SelectBoxReducer";
+
 // import flareReducer from "./reducers/FlareReducer";
 // import oilReducer from "./reducers/OilTempReducer";
 // import tubingReducer from "./reducers/TubingPressureReducer";// import injValveReducer from "./reducers/InjValveReducer";
@@ -16,7 +19,8 @@ export default () => {
     const rootReducer = combineReducers({
         weather: weatherReducer,
         selectedMetrics: selectBoxReducer,
-        historicalData: historicalDataReducer
+        historicalData: historicalDataReducer,
+        subscriptionData: subscriptionDataReducer
     });
 
     const composeEnhancers = composeWithDevTools({});
