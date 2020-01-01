@@ -1,10 +1,9 @@
 import * as actions from "../actions";
 
-const initialState = {
-    selectedMetrics: []
-};
+const initialState = []
 
 const setSelection = (state, action) => {
+    //action payload recieved as array from dispatch in component
     const { metric } = action;
     return metric;
 };

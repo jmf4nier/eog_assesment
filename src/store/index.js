@@ -2,11 +2,11 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import sagas from "./sagas";
+import LiveButtonReducer from './reducers/LiveButton'
 import weatherReducer from "./reducers/Weather";
-import historicalDataReducer from './reducers/HistoricalData'
-import subscriptionDataReducer from './reducers/SubscriptionData'
-
-import selectBoxReducer from "./reducers/SelectBoxReducer";
+import DataReducer from './reducers/Data'
+// import subscriptionDataReducer from './reducers/SubscriptionData'
+import selectBoxReducer from "./reducers/SelectBox";
 
 // import flareReducer from "./reducers/FlareReducer";
 // import oilReducer from "./reducers/OilTempReducer";
@@ -19,8 +19,9 @@ export default () => {
     const rootReducer = combineReducers({
         weather: weatherReducer,
         selectedMetrics: selectBoxReducer,
-        historicalData: historicalDataReducer,
-        subscriptionData: subscriptionDataReducer
+        data: DataReducer,
+        // subscriptionData: subscriptionDataReducer,
+        live: LiveButtonReducer
     });
 
     const composeEnhancers = composeWithDevTools({});

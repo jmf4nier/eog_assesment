@@ -52,17 +52,7 @@ const HistoricalResults = () => {
         };
         dispatch({ type: actions.HISTORICAL_DATA_LOADING, data });
     }, [dispatch, data, error, fetching]);
-    return <div>stuff</div>;
+    return <div></div>;
 };
 
 export default HistoricalResults;
-
-// not being used for now:
-// const metricNames = [
-//     "flareTemp",
-//     "tubingPressure",
-//     "injValveOpen",
-//     "oilTemp",
-//     "casingPressure",
-//     "waterTemp"
-// ];

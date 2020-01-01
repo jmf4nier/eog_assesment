@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
-// import SimpleLineChart from "./components/Graph";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
+import LiveChips from './components/LiveChips'
+import LiveButton from "./components/LiveButton"
 import Wrapper from "./components/Wrapper";
 import SubscriptionHandler from "./components/SubscriptionHandler";
 import HistoricDataHandler from "./components/HistoricDataHandler";
@@ -16,9 +17,9 @@ import {
     Provider,
     createClient,
     defaultExchanges,
-    subscriptionExchange,
+    subscriptionExchange
 } from "urql";
-import ApiDataFetch from "./store/api/index";
+import { Button } from "@material-ui/core";
 
 const subscriptionClient = new SubscriptionClient(
     "ws://react.eogresources.com/graphql",
@@ -54,21 +55,22 @@ const theme = createMuiTheme({
 
 const App = props => {
     const graphSelected = useSelector(state => state.selectedMetrics);
+    const liveSelected = useSelector(state => state.live)
+    const latestValues = useSelector(state => state.data.latestValues);
+
     return (
         <Provider value={client}>
             <MuiThemeProvider theme={theme}>
                 <CssBaseline />
                 <Wrapper>
                     <Header />
-                    {/* <SubscriptionHandler /> */}
-
+                    
+                    {(liveSelected && graphSelected.length > 0? <SubscriptionHandler />: null)}
                     <Weather />
-                    {/* {graphSelected.length > 0 ? (
-                    null
-                ) : null} */}
+                    
                     <HistoricDataHandler />
-                    {/* <SubscriptionHandler /> */}
-                    <Graph />
+                    <LiveChips latestValues={latestValues}/>
+                    {graphSelected.length > 0 ? <div> <Graph /> <LiveButton/> </div> : null}
                     <ToastContainer />
                 </Wrapper>
             </MuiThemeProvider>
