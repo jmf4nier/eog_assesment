@@ -16,33 +16,32 @@ export default function LiveChips(props) {
     
     const classes = useStyles();
     const liveStreamOn = useSelector(state => state.live);
-    const latestValues = useSelector(state => state.data.latestValues);
-    console.log(latestValues.flareTemp)
+    const {flareTemp,oilTemp,casingPressure,waterTemp,injValveOpen,tubingPressure} = useSelector(state => state.data.latestValues);
+    
     const selectedMetrics = useSelector(state => state.selectedMetrics);
 
     const handleChips = () => {
         
-        console.log()
+        
         return selectedMetrics.map(metric=>{
             if (metric === 'flareTemp'){
-                console.log('made it')
-                return <Chip label={props.latestValues.flareTemp}/>
+                return <Chip label={`Flare ${flareTemp}`}/>
             }
-            // if (metric === 'oilTemp'){
-            //     return <Chip label={oilTemp}/>
-            // }
-            // if (metric === 'waterTemp'){
-            //     return <Chip label={waterTemp}/>
-            // }
-            // if (metric === 'casingPressure'){
-            //     return <Chip label={casingPressure}/>
-            // }
-            // if (metric === 'tubingPressure'){
-            //     return <Chip label={tubingPressure}/>
-            // }
-            // if (metric === 'injValveOpen'){
-            //     return <Chip label={injValveOpen}/>
-            // }
+            if (metric === 'oilTemp'){
+                return <Chip label={`Oil Temperature ${oilTemp}`}/>
+            }
+            if (metric === 'waterTemp'){
+                return <Chip label={`Water Temperature ${waterTemp}`}/>
+            }
+            if (metric === 'casingPressure'){
+                return <Chip label={`Casing Pressure ${casingPressure}`}/>
+            }
+            if (metric === 'tubingPressure'){
+                return <Chip label={`Tubing Pressure ${tubingPressure}`}/>
+            }
+            if (metric === 'injValveOpen'){
+                return <Chip label={`Inject Valve ${injValveOpen}`}/>
+            }
             return null
         })
     };

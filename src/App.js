@@ -5,8 +5,8 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
-import LiveChips from './components/LiveChips'
-import LiveButton from "./components/LiveButton"
+import LiveChips from "./components/LiveChips";
+import LiveButton from "./components/LiveButton";
 import Wrapper from "./components/Wrapper";
 import SubscriptionHandler from "./components/SubscriptionHandler";
 import HistoricDataHandler from "./components/HistoricDataHandler";
@@ -55,22 +55,25 @@ const theme = createMuiTheme({
 
 const App = props => {
     const graphSelected = useSelector(state => state.selectedMetrics);
-    const liveSelected = useSelector(state => state.live)
-    const latestValues = useSelector(state => state.data.latestValues);
-
+    const liveSelected = useSelector(state => state.live);
     return (
         <Provider value={client}>
             <MuiThemeProvider theme={theme}>
                 <CssBaseline />
                 <Wrapper>
                     <Header />
-                    
-                    {(liveSelected && graphSelected.length > 0? <SubscriptionHandler />: null)}
+                    {liveSelected && graphSelected.length > 0 ? (
+                        <SubscriptionHandler />
+                    ) : null}
                     <Weather />
-                    
+
                     <HistoricDataHandler />
-                    <LiveChips latestValues={latestValues}/>
-                    {graphSelected.length > 0 ? <div> <Graph /> <LiveButton/> </div> : null}
+                    {graphSelected.length > 0 ? (
+                        <div>
+                            {" "}
+                            <Graph /> <LiveButton />{" "}
+                        </div>
+                    ) : null}
                     <ToastContainer />
                 </Wrapper>
             </MuiThemeProvider>
