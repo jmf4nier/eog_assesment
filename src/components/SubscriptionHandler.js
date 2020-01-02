@@ -2,7 +2,6 @@ import { useSubscription } from "urql";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as actions from "../store/actions";
-import LinearProgress from "@material-ui/core/LinearProgress";
 import LiveChips from './LiveChips'
 
 const subscription = `
@@ -27,12 +26,9 @@ const SubscriptionResults = () => {
             dispatch({ type: actions.API_ERROR, error: error.message });
             return;
         }
-        
-        
-
         dispatch({ type: actions.SUBSCRIPTION_DATA_LOADING, data });
     }, [dispatch, data, error]);
-
+    
     return <div><LiveChips/></div>;
 };
 export default SubscriptionResults;

@@ -47,11 +47,11 @@ const HistoricalResults = () => {
             return;
         }
         if (!data) return
-        if(fetching){
-          return <LinearProgress/>
-        };
         dispatch({ type: actions.HISTORICAL_DATA_LOADING, data });
-    }, [dispatch, data, error, fetching]);
+    }, [dispatch, data, error]);
+    if(fetching){
+        return <LinearProgress/>
+      };
     return <div></div>;
 };
 

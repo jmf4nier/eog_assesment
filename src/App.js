@@ -5,13 +5,12 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
-import LiveChips from "./components/LiveChips";
 import LiveButton from "./components/LiveButton";
 import Wrapper from "./components/Wrapper";
 import SubscriptionHandler from "./components/SubscriptionHandler";
 import HistoricDataHandler from "./components/HistoricDataHandler";
 import Graph from "./components/Graph";
-import Weather from "./components/Weather";
+// import Weather from "./components/Weather";
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import {
     Provider,
@@ -19,7 +18,6 @@ import {
     defaultExchanges,
     subscriptionExchange
 } from "urql";
-import { Button } from "@material-ui/core";
 
 const subscriptionClient = new SubscriptionClient(
     "ws://react.eogresources.com/graphql",
@@ -53,8 +51,16 @@ const theme = createMuiTheme({
     }
 });
 
-const App = props => {
+const App = (props) => {
     const graphSelected = useSelector(state => state.selectedMetrics);
+    const displayTempAxis = graphSelected.includes(
+        "flareTemp" || "waterTemp" || "oilTemp"
+    );
+    const displayPressureAxis = graphSelected.includes(
+        "tubingPressure" || "casingPressure"
+    );
+    const displayPercentageAxis = graphSelected.includes("injValveOpen");
+
     const liveSelected = useSelector(state => state.live);
     return (
         <Provider value={client}>
@@ -65,13 +71,16 @@ const App = props => {
                     {liveSelected && graphSelected.length > 0 ? (
                         <SubscriptionHandler />
                     ) : null}
-                    <Weather />
-
+                    {/* <Weather /> */}
                     <HistoricDataHandler />
                     {graphSelected.length > 0 ? (
                         <div>
-                            {" "}
-                            <Graph /> <LiveButton />{" "}
+                            <Graph
+                                showTemp={displayTempAxis}
+                                showPress={displayPressureAxis}
+                                showPercent={displayPercentageAxis}
+                            />
+                            <LiveButton />
                         </div>
                     ) : null}
                     <ToastContainer />
