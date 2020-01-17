@@ -5,14 +5,7 @@ import sagas from "./sagas";
 import LiveButtonReducer from './reducers/LiveButton'
 import weatherReducer from "./reducers/Weather";
 import DataReducer from './reducers/Data'
-// import subscriptionDataReducer from './reducers/SubscriptionData'
 import selectBoxReducer from "./reducers/SelectBox";
-
-// import flareReducer from "./reducers/FlareReducer";
-// import oilReducer from "./reducers/OilTempReducer";
-// import tubingReducer from "./reducers/TubingPressureReducer";// import injValveReducer from "./reducers/InjValveReducer";
-// import casingReducer from "./reducers/CasingPressureReducer";
-// import waterReducer from "./reducers/WaterTempReducer";
 
 export default () => {
    
@@ -20,7 +13,6 @@ export default () => {
         weather: weatherReducer,
         selectedMetrics: selectBoxReducer,
         data: DataReducer,
-        // subscriptionData: subscriptionDataReducer,
         live: LiveButtonReducer
     });
 

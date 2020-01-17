@@ -20,12 +20,12 @@ import {
 } from "urql";
 
 const subscriptionClient = new SubscriptionClient(
-    "ws://react.eogresources.com/graphql",
+    "ws://notavailable",
     {}
 );
 
 const client = createClient({
-    url: "https://react.eogresources.com/graphql",
+    url: "not available",
     exchanges: [
         ...defaultExchanges,
         subscriptionExchange({
