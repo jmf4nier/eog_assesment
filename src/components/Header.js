@@ -18,7 +18,7 @@ export default () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" color="inherit" className={classes.grow}>
-          {name} EOG React Visualization Assessment
+          {name} Graphing Practice With React/Graphql
         </Typography>
         <SelectBox/>
       </Toolbar>
